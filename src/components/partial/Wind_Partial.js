@@ -1,20 +1,22 @@
+import React from 'react';
 import '../../App.css';
 
-function Wind_Partial(props) {
+import { Text } from '@mantine/core';
+
+function WIND_PARTIAL(props) {
 
     const airDirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
     return (
-        <div>
-            <p>
+        <React.Fragment>
+            <Text>
             Wind Speed: {props.min} - {props.max} m/s, on average: {props.mean} m/s
-            </p>
-            <p>
+            </Text>
+            <Text>
                 Wind Direction: {airDirs[props.windDirection]}
-            </p>
-
-        </div>
+            </Text>
+        </React.Fragment>
     )
 }
 
-export default Wind_Partial
+export default WIND_PARTIAL

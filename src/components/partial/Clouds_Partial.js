@@ -1,12 +1,15 @@
+import React from 'react';
 import '../../App.css';
 
-function Clouds_Partial(props) {
+import { Text } from '@mantine/core';
+
+function CLOUDS_PARTIAL(props) {
 
     return(
-        <div>
-            Clouds mode: {props.mode}
-        </div>
+        <React.Fragment>
+            <Text>Clouds mode: {props.mode}</Text>
+        </React.Fragment>
     )
 }
 
-export default Clouds_Partial;
+export default CLOUDS_PARTIAL;

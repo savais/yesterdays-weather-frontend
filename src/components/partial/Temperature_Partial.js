@@ -1,17 +1,18 @@
+import React from 'react';
 import '../../App.css';
 
-function Temperature_Partial(props) {
+import { Text } from '@mantine/core';
+
+function TEMPERATURE_PARTIAL(props) {
 
 
 
     return (
-        <div>
-            <p>
-                {props.min} C - {props.max} C, On average {props.mean} C
-            </p>
-        </div>
+        <React.Fragment>
+            <Text>{props.min} C - {props.max} C, On average {props.mean} C </Text>
+        </React.Fragment>
     )
 }
 
 
-export default Temperature_Partial
+export default TEMPERATURE_PARTIAL

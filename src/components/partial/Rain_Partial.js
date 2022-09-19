@@ -1,13 +1,16 @@
+import React from 'react';
 import '../../App.css';
 
-function Rain_Partial(props) {
+import { Text } from '@mantine/core';
+
+function RAIN_PARTIAL(props) {
 
     return (
-        <div>
-            Rain: Hourly average {props.mean} mm, Total {props.total} mm.
-        </div>
+        <React.Fragment>
+            <Text>Rain: Hourly average {props.mean} mm, Total {props.total} mm.</Text>
+        </React.Fragment>
     )
 }
 
 
-export default Rain_Partial;
+export default RAIN_PARTIAL;
