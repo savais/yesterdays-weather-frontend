@@ -3,7 +3,7 @@ import '../../App.css';
 
 import { Text } from '@mantine/core';
 
-function CLOUDS_PARTIAL(props) {
+function CloudsPartial(props) {
 
     return(
         <React.Fragment>
@@ -12,4 +12,4 @@ function CLOUDS_PARTIAL(props) {
     )
 }
 
-export default CLOUDS_PARTIAL;
+export default CloudsPartial;

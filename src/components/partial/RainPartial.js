@@ -3,16 +3,14 @@ import '../../App.css';
 
 import { Text } from '@mantine/core';
 
-function TEMPERATURE_PARTIAL(props) {
-
-
+function RainPartial(props) {
 
     return (
         <React.Fragment>
-            <Text>{props.min} C - {props.max} C, On average {props.mean} C </Text>
+            <Text>Rain: Hourly average {props.mean} mm, Total {props.total} mm.</Text>
         </React.Fragment>
     )
 }
 
 
-export default TEMPERATURE_PARTIAL
+export default RainPartial;

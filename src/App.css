@@ -1,3 +1,6 @@
+html {
+  background-color: black;
+}
 .App {
   text-align: center;
   display: flex;
@@ -50,23 +53,6 @@
   order: 5;
   display: flex;
 }
-
-/* .App-body>section {
-  min-height: 100%;
-  width: 33.333%;
-  border: 1px solid purple;
-  background-color: lightpink;
-} */
-
-/* .Weather-Data {
-  width: 100%;
-  min-height: 90%;
-  border: 1px solid green;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: lightgreen;
-} */
 
 
 .App-footer {

@@ -2,11 +2,11 @@ import React from 'react';
 import { MantineProvider, Text, Title, Paper, Center, Grid, MediaQuery } from '@mantine/core';
 
 import '../App.css';
-import CLOUDS_PARTIAL from './partial/Clouds_Partial.js'
-import TEMPERATURE_PARTIAL from './partial/Temperature_Partial.js'
-import WIND_PARTIAL from './partial/Wind_Partial.js'
-import RAIN_PARTIAL from './partial/Rain_Partial.js'
-import SvgW1 from './partial/svg/W1.js'
+import CloudsPartial from './partial/CloudsPartial.js'
+import TemperaturePartial from './partial/TemperaturePartial.js'
+import WindPartial from './partial/WindPartial.js'
+import RainPartial from './partial/RainPartial.js'
+import WeatherIcon from './partial/WeatherIcon.js'
 
 
 // const reqSvgs = require.context ( '../img/weathersymbols', true, /\.svg$/ )
@@ -21,33 +21,38 @@ function WeatherCard(props) {
 
     let renderableProps = [];
     let windProps = {};
+    let Icon = {Cloud: 0, Rain: 0}
 
     for(const x of Object.keys(props)) {
         switch(x) {
             case 'windSpeed':
                 windProps = {...windProps, ...props.windSpeed};
                 if(windProps.windDirection !== undefined) {
-                    renderableProps.push(<WIND_PARTIAL {...windProps} />);
+                    renderableProps.push(<WindPartial {...windProps} />);
                 }
                 break;
 
             case 'windDirection':
                 windProps = {...windProps,'windDirection': props.windDirection.mode};
                 if(windProps.min !== undefined) {
-                    renderableProps.push(<WIND_PARTIAL {...windProps} />);
+                    renderableProps.push(<WindPartial {...windProps} />);
                 }
                 break;
 
             case 'cloudCoverage':
-                renderableProps.push(<CLOUDS_PARTIAL {...props.cloudCoverage} />);
+                renderableProps.push(<CloudsPartial {...props.cloudCoverage} />);
+                if(props.cloudCoverage.mode > 2) Icon.Cloud = 1;
+                if(props.cloudCoverage.mode > 6) Icon.Cloud = 2;
                 break;
 
             case 'tempC':
-                renderableProps.push(<TEMPERATURE_PARTIAL {...props.tempC} />);
+                renderableProps.push(<TemperaturePartial {...props.tempC} />);
                 break;
 
             case 'rain_1h':
-                renderableProps.push(<RAIN_PARTIAL {...props.rain_1h} />);
+                renderableProps.push(<RainPartial {...props.rain_1h} />);
+                if(props.rain_1h.mean > 1) Icon.Rain = 1;
+                if(props.rain_1h.mean > 3) Icon.Rain = 2;
                 break;
                 
             default:
@@ -64,9 +69,9 @@ function WeatherCard(props) {
                         <Title order={3}>{props.Title}</Title>
                     </Grid.Col>
                     <Grid.Col span={4} orderXl={3}>
-                        <MediaQuery smallerThan='xl' largerThan='md' styles={{transform: 'scale(0.75) translate(0px, 25px)'}}>
+                        <MediaQuery smallerThan='xl' largerThan='lg' styles={{transform: 'scale(0.75) translate(0px, 25px)'}}>
                             <Center style={{width: '100%', height: '100%', minHeight: 'fit-content'}}>
-                                <SvgW1 style={{scale: '400%'}} />  
+                                <WeatherIcon {...Icon}/>  
                             </Center>
                         </MediaQuery>
                     </Grid.Col>

@@ -3,7 +3,7 @@ import '../../App.css';
 
 import { Text } from '@mantine/core';
 
-function WIND_PARTIAL(props) {
+function WindPartial(props) {
 
     const airDirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
@@ -19,4 +19,4 @@ function WIND_PARTIAL(props) {
     )
 }
 
-export default WIND_PARTIAL
+export default WindPartial

@@ -1,20 +1,49 @@
 
 import './App.css';
 import { useEffect, useState } from 'react';
-import { MantineProvider, Text, Title, Footer,  Header, Grid, AppShell, Space, MediaQuery, Loader } from '@mantine/core';
-import { getHotkeyHandler } from '@mantine/hooks';
+import { MantineProvider, Text, Title, Footer,  Header, Grid, AppShell, Space, MediaQuery, Loader, ActionIcon } from '@mantine/core';
+import { getHotkeyHandler, useColorScheme } from '@mantine/hooks';
 import { NotificationsProvider, showNotification } from '@mantine/notifications';
 
 // Project Components
 import WeatherCard from './components/WeatherCard.js';
 import CitySelect from './components/CitySelect.js'
 
-function App() {
-  const [weather, setWeather] = useState();
+
+function App(props) {
+
+  const [weather, setWeather] = useState(undefined);
   const [city, setCity] = useState('Helsinki');
-  const [cities, setCities] = useState([]);
+  const [cities, setCities] = useState(undefined);
+
+
+  // Light-Darkmode
+  let prefColorScheme = props.Mode;
+  const [colorScheme, setColorScheme] = useState(prefColorScheme);
+  const toggleColorScheme = (value) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const dark = colorScheme === 'dark';
 
   const base_url = 'http://localhost:5000/api'
+
+  const Theme = {
+    colorScheme: colorScheme,
+    components: {
+      Paper: {
+        styles: (theme) => ({
+          root: {
+            backgroundColor:
+              (theme.colorScheme === 'dark') 
+              ? theme.colors.indigo[9]
+              : theme.colors.indigo[0]
+          }
+        })
+      }
+    }
+  }
+
+  console.log(prefColorScheme + "  -  " + colorScheme)
+
 
   const handleCityChange = () => {
     fetch(`${base_url}/${city}`)
@@ -32,7 +61,6 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setWeather(data)
-        console.log('data got')
       })
       .catch(err => {
         console.log(err)
@@ -50,7 +78,7 @@ function App() {
 
 
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider inherit theme={Theme} withGlobalStyles withNormalizeCSS>
       <AppShell
       footer={
         <Footer height={60} p="md">
@@ -59,16 +87,23 @@ function App() {
         }
 
         header={
-          <Header height={70} p="md" style={{ display: 'flex', justifyContent: 'space-between' }}> <Title>Eilisen Sää</Title> <Space w='xl' />  <CitySelect value={city} onChange={setCity} data={cities} onKeyDown={getHotkeyHandler([['Enter', handleCityChange]])} /></Header>
+          <Header height={70} p="md" style={{ display: 'flex', justifyContent: 'space-between' }}> <Title>Eilisen Sää</Title> <Space w='xl' /> <ActionIcon
+          variant="outline"
+          color={dark ? 'yellow' : 'blue'}
+          onClick={() => toggleColorScheme()}
+          title="Toggle color scheme"
+        >
+          {dark ? <Text>L</Text> : <Text>D</Text>}
+        </ActionIcon> <Space w='xl' /> <CitySelect value={city} onChange={setCity} data={cities} onKeyDown={getHotkeyHandler([['Enter', handleCityChange]])} /></Header>
         }
 
       >
         <NotificationsProvider position="top-center" zIndex={2077}>
-            <MediaQuery smallerThan='md' styles={{flexDirection:'column-reverse', justifyContent:'center'}}>
+            <MediaQuery smallerThan='lg' styles={{flexDirection:'column-reverse', justifyContent:'center'}}>
               <Grid grow className="App-body">
                 <Grid.Col span={4}>
                       {weather !== undefined 
-                        ? <WeatherCard {...weather.daybefore} Title='Toissa Päivänä'/>
+                        ? <WeatherCard  {...weather.daybefore} Title='Toissa Päivänä'/>
                         : <Space />
                       }
                 </Grid.Col>
@@ -88,14 +123,6 @@ function App() {
                 </Grid.Col>
               </Grid>
             </MediaQuery>
-
-            {/* <nav className="App-nav">
-              <ul>
-                <li>Home</li>
-                <li></li>
-                <li>Info</li>
-              </ul>
-            </nav> */}
         </NotificationsProvider>
       </AppShell>
     </MantineProvider>
