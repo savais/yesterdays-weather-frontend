@@ -34,7 +34,7 @@ function App(props) {
           root: {
             backgroundColor:
               (theme.colorScheme === 'dark') 
-              ? theme.colors.indigo[9]
+              ? '#404666'
               : theme.colors.indigo[0]
           }
         })

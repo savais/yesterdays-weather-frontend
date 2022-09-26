@@ -12,9 +12,9 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <App Mode={prefMode}/>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
